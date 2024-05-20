@@ -119,28 +119,20 @@ class ApplicationState extends AppLifeCycleListener<Application>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigation.navigatorKey,
+      navigatorKey: sl.get<Navigation>().navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: _currentTheme,
       navigatorObservers: [sl.get<AppRouteObserver>()],
       initialRoute: AppRouter.splash,
       onGenerateRoute: (settings) =>
-          generateRoute(routes: AppRouter(), settings: settings),
+          AppRouter().generateRoute(settings: settings),
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: const TextScaler.linear(1.0)),
           child: child ?? const SizedBox.shrink(),
         );
       },
     );
-  }
-
-  Route<dynamic>? generateRoute({
-    required RouterModule routes,
-    required RouteSettings settings,
-  }) {
-    final routesMap = <String, MaterialPageRoute>{};
-    routesMap.addAll(routes.getRoutes(settings));
-    return routesMap[settings.name];
   }
 }

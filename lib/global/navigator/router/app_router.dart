@@ -8,11 +8,10 @@ class AppRouter extends RouterModule {
   static const String main = '/main';
 
   Route<dynamic>? generateRoute({
-    required RouterModule routes,
     required RouteSettings settings,
   }) {
     final routesMap = <String, MaterialPageRoute>{};
-    routesMap.addAll(routes.getRoutes(settings));
+    routesMap.addAll(getRoutes(settings));
     return routesMap[settings.name];
   }
 

@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:securities_app/global/socket/model/socket_stock_data.dart';
 import 'package:securities_app/global/socket/socket_connect.dart';
@@ -35,6 +36,7 @@ class _SocketObservationPair<T> {
   }
 }
 
+@lazySingleton
 class SocketDataCenter {
   //hold all observation for stock data change
   final Map<String, List<_SocketObservationPair<SocketStockData>>>

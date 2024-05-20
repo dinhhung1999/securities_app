@@ -1,34 +1,32 @@
 
-
-
-
-
 import 'package:flutter/widgets.dart';
+import 'package:injectable/injectable.dart';
 
 import 'navigation.dart';
 
+@LazySingleton(as: Navigation)
 class NavigationImpl extends Navigation {
   @override
-  Future<dynamic> navigateTo(String routeName, {dynamic arguments}) {
+  Future<dynamic> pushNamed(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushNamed(routeName, arguments: arguments);
   }
 
   @override
-  Future<dynamic> replaceTo(String routeName, {dynamic arguments}) {
+  Future<dynamic> pushReplacementNamed(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushReplacementNamed(routeName, arguments: arguments);
   }
 
   @override
-  Future<dynamic> removeUntil(String routeName, {dynamic arguments}) {
+  Future<dynamic> pushNamedAndRemoveUntil(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!.pushNamedAndRemoveUntil(
         routeName, (Route<dynamic> route) => false,
         arguments: arguments);
   }
 
   @override
-  void goBack<T extends Object?>([T? result]) {
+  void pop<T extends Object?>([T? result]) {
     return navigatorKey.currentState!.pop<T>(result);
   }
 
